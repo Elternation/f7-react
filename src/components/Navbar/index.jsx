@@ -37,17 +37,21 @@ class F7Navbar extends React.Component {
       }
     });
 
-    return [
+    return {
       left,
       title,
       right,
-    ];
+    };
   }
 
   render() {
+    let elements = this._checkChildOrder();
+
     return <div className={this._getNavbarClassName()}>
       <div className="navbar-inner">
-        {this._checkChildOrder()}
+        {elements.left}
+        {elements.title}
+        {elements.right}
       </div>
     </div>;
   }

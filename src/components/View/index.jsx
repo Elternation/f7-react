@@ -1,9 +1,9 @@
-import React              from 'react';
-import PropTypes          from 'prop-types';
-import classNames         from 'classnames';
-import Framework7         from 'framework7/dist/framework7.esm.bundle';
+import React            from 'react';
+import PropTypes        from 'prop-types';
+import classNames       from 'classnames';
+import Framework7       from 'framework7/dist/framework7.esm.bundle';
 
-import addPropsToChildren from '../../utils/add-props-to-children';
+import withF7AppContext from '../../utils/with-f7-app-context';
 
 class F7View extends React.Component {
   constructor() {
@@ -38,22 +38,24 @@ class F7View extends React.Component {
     result_options.name = this.props.main ? 'main' : this.props.name;
     result_options.main = this.props.main;
 
-    this.props.service_props.f7.views.create(this.html_element, result_options);
+    this.props.f7_context.f7.views.create(this.html_element, result_options);
   }
 
   render() {
-    return <div ref={(el) => { this.html_element = el; }} className={this._getClassNames()}>{addPropsToChildren(this.props.children, { service_props: this.props.service_props })}</div>;
+    return <div ref={(el) => { this.html_element = el; }} className={this._getClassNames()}>
+      {this.props.children}
+    </div>;
   }
 }
 
 F7View.propTypes = {
-  children : PropTypes.node.isRequired,
-  options  : PropTypes.object,
-  className: PropTypes.string,
-  main     : PropTypes.bool,
-  name     : PropTypes.string,
-  isTab    : PropTypes.bool,
-  service_props: PropTypes.shape({
+  children  : PropTypes.node.isRequired,
+  options   : PropTypes.object,
+  className : PropTypes.string,
+  main      : PropTypes.bool,
+  name      : PropTypes.string,
+  isTab     : PropTypes.bool,
+  f7_context: PropTypes.shape({
     f7: PropTypes.instanceOf(Framework7).isRequired,
   })
 };
@@ -63,4 +65,4 @@ F7View.defaultProps = {
   isTab: false
 };
 
-export default F7View;
+export default withF7AppContext(F7View);

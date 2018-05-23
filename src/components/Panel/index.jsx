@@ -1,9 +1,9 @@
-import React              from 'react';
-import PropTypes          from 'prop-types';
-import classNames         from 'classnames';
-import Framework7         from 'framework7/dist/framework7.esm.bundle';
+import React            from 'react';
+import PropTypes        from 'prop-types';
+import classNames       from 'classnames';
+import Framework7       from 'framework7/dist/framework7.esm.bundle';
 
-import addPropsToChildren from '../../utils/add-props-to-children';
+import withF7AppContext from '../../utils/with-f7-app-context';
 
 class F7Panel extends React.Component {
   constructor(props) {
@@ -37,11 +37,11 @@ class F7Panel extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.service_props.f7.panel) {
+    if (!this.props.f7_context.f7.panel) {
       return;
     }
 
-    this.panel_instance = this.props.service_props.f7.panel.create({
+    this.panel_instance = this.props.f7_context.f7.panel.create({
       el    : this.html_element,
       side  : this.props.side,
       effect: this.props.effect
@@ -69,17 +69,19 @@ class F7Panel extends React.Component {
   }
 
   render() {
-    return <div ref={(el) => { this.html_element = el; }} className={this._getClassNames()}>{addPropsToChildren(this.props.children, { service_props: this.props.service_props })}</div>;
+    return <div ref={(el) => { this.html_element = el; }} className={this._getClassNames()}>
+      {this.props.children}
+    </div>;
   }
 }
 
 F7Panel.propTypes = {
-  children : PropTypes.node,
-  open     : PropTypes.bool,
-  className: PropTypes.string,
-  side     : PropTypes.oneOf(['left', 'right']).isRequired,
-  effect   : PropTypes.oneOf(['cover', 'reveal']),
-  service_props: PropTypes.shape({
+  children  : PropTypes.node,
+  open      : PropTypes.bool,
+  className : PropTypes.string,
+  side      : PropTypes.oneOf(['left', 'right']).isRequired,
+  effect    : PropTypes.oneOf(['cover', 'reveal']),
+  f7_context: PropTypes.shape({
     f7: PropTypes.instanceOf(Framework7).isRequired,
   })
 };
@@ -89,4 +91,4 @@ F7Panel.defaultProps = {
   effect: 'cover'
 };
 
-export default F7Panel;
+export default withF7AppContext(F7Panel);

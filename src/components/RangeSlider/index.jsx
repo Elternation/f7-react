@@ -4,6 +4,8 @@ import _                  from 'lodash';
 import classNames         from 'classnames';
 import Framework7         from 'framework7/dist/framework7.esm.bundle';
 
+import withF7AppContext   from '../../utils/with-f7-app-context';
+
 class F7RangeSlider extends React.Component {
   constructor(props) {
     super(props);
@@ -92,7 +94,7 @@ class F7RangeSlider extends React.Component {
       this._setNewValue(!this.props.dual ? this.props.value : [this.props.leftValue, this.props.rightValue]);
     });
 
-    this.range_instance = this.props.service_props.f7.range.create(parameters);
+    this.range_instance = this.props.f7_context.f7.range.create(parameters);
   }
 
   render() {
@@ -165,10 +167,10 @@ F7RangeSlider.propTypes = {
   dual      : PropTypes.bool,
   popupValue: PropTypes.bool,
   onChange  : PropTypes.func,
-  service_props: PropTypes.shape({
+  f7_context: PropTypes.shape({
     f7: PropTypes.instanceOf(Framework7).isRequired,
   })
 
 };
 
-export default F7RangeSlider;
+export default withF7AppContext(F7RangeSlider);

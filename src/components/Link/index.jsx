@@ -1,9 +1,17 @@
-import React      from 'react';
-import PropTypes  from 'prop-types';
-import _          from 'lodash';
-import classNames from 'classnames';
+import React            from 'react';
+import PropTypes        from 'prop-types';
+import _                from 'lodash';
+import classNames       from 'classnames';
+import Framework7       from 'framework7/dist/framework7.esm.bundle';
+
+import withF7AppContext from '../../utils/with-f7-app-context';
 
 class F7Link extends React.Component {
+  constructor() {
+    super();
+
+    this._onClick = this._onClick.bind(this);
+  }
   _getClassNames() {
     return classNames({
       'link'     : true,
@@ -12,17 +20,31 @@ class F7Link extends React.Component {
     });
   }
 
+  _onClick(event) {
+    if (this.props.openPanel) {
+      this.props.f7_context.f7.panel.open(this.props.openPanel);
+    }
+
+    if (_.isFunction(this.props.onClick)) {
+      this.props.onClick(event);
+    }
+  }
+
   render() {
-    return <a onClick={this.props.onClick} className={this._getClassNames()} href={this.props.href}>{this.props.children}</a>;
+    return <a onClick={this._onClick} className={this._getClassNames()} href={this.props.href}>{this.props.icon}{this.props.children}</a>;
   }
 }
 
 F7Link.propTypes = {
-  icon    : PropTypes.element,
-  children: PropTypes.string,
-  external: PropTypes.bool,
-  href    : PropTypes.string,
-  onClick : PropTypes.func
+  icon      : PropTypes.element,
+  children  : PropTypes.string,
+  external  : PropTypes.bool,
+  href      : PropTypes.string,
+  onClick   : PropTypes.func,
+  openPanel : PropTypes.oneOf(['left', 'right']),
+  f7_context: PropTypes.shape({
+    f7: PropTypes.instanceOf(Framework7).isRequired,
+  })
 };
 
-export default F7Link;
+export default withF7AppContext(F7Link);

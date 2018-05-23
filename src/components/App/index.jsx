@@ -3,19 +3,15 @@ import React              from 'react';
 import PropTypes          from 'prop-types';
 import Framework7         from 'framework7/dist/framework7.esm.bundle';
 
-import addPropsToChildren from '../../utils/add-props-to-children';
-
 import routerComponent    from './router-component';
+
+const F7Context = React.createContext({ f7: null });
 
 class F7App extends React.Component {
   constructor(props) {
     super(props);
 
     let options = props.parameters;
-
-    this.service_props = { // Забиваем место для дальнейшей передачи пока еще все не инциализировали
-      f7: undefined
-    };
 
     this.inited = false;
 
@@ -36,11 +32,9 @@ class F7App extends React.Component {
 
     for (let one_route of routes) {
       if (_.isObject(one_route.component) && one_route.component.element && one_route.component.props) {
-        let new_props = Object.assign({}, one_route.component.props, { service_props: this.service_props });
-
-        one_route.component = routerComponent(one_route.component.element, new_props);
+        one_route.component = routerComponent(one_route.component.element, one_route.component.props);
       } else {
-        one_route.component = routerComponent(one_route.component, { service_props: this.service_props });
+        one_route.component = routerComponent(one_route.component);
       }
 
       if (_.isArray(one_route.tabs)) {
@@ -56,8 +50,6 @@ class F7App extends React.Component {
   _onF7Init() {
     this.inited = true;
 
-    this.service_props.f7 = this.f7_instance;
-
     if (!_.isFunction(this.props.onInit)) {
       return;
     }
@@ -70,7 +62,9 @@ class F7App extends React.Component {
       return null;
     }
 
-    return addPropsToChildren(this.props.children, { service_props: this.service_props });
+    return <F7Context.Provider value={{ f7: this.f7_instance }}>
+      {this.props.children}
+    </F7Context.Provider>;
   }
 }
 
@@ -83,3 +77,5 @@ F7App.propTypes = {
 };
 
 export default F7App;
+
+export { F7Context as F7AppContext };

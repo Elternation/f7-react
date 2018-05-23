@@ -1,6 +1,7 @@
 import React              from 'react';
 import PropTypes          from 'prop-types';
 import _                  from 'lodash';
+import classNames         from 'classnames';
 
 import addPropsToChildren from '../../../../utils/add-props-to-children';
 
@@ -74,7 +75,7 @@ class F7MediaListItem extends React.Component {
   }
 
   render() {
-    return <li>
+    return <li className={classNames([this.props.className, { ripple: this.props.ripple }])}>
       {this._getItemContent()}
     </li>;
   }
@@ -87,8 +88,10 @@ F7MediaListItem.Subtitle   = SubtitlePath;
 F7MediaListItem.Text       = TextPath;
 
 F7MediaListItem.propTypes = {
-  children: PropTypes.node.isRequired,
-  href    : PropTypes.string
+  children : PropTypes.node.isRequired,
+  href     : PropTypes.string,
+  className: PropTypes.string,
+  ripple   : PropTypes.bool
 };
 
 export default F7MediaListItem;

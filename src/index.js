@@ -5,12 +5,14 @@ import F7App         from './components/App';
 import F7Badge       from './components/Badge';
 import F7Block       from './components/Block';
 import F7BlockTitle  from './components/BlockTitle';
+import F7Button      from './components/Button';
 import F7Checkbox    from './components/Checkbox';
 import F7Grid        from './components/Grid';
 import F7Icon        from './components/Icon';
 import F7Inputs      from './components/Inputs';
 import F7Link        from './components/Link';
 import F7ListView    from './components/ListView';
+import F7LoginScreen from './components/LoginScreen';
 import F7Navbar      from './components/Navbar';
 import F7Page        from './components/Page';
 import F7Panel       from './components/Panel';
@@ -39,12 +41,14 @@ F7React.components = {
   Badge      : F7Badge,
   Block      : F7Block,
   BlockTitle : F7BlockTitle,
+  Button     : F7Button,
   Checkbox   : F7Checkbox,
   Grid       : F7Grid,
   Icon       : F7Icon,
   Inputs     : F7Inputs,
   Link       : F7Link,
   ListView   : F7ListView,
+  LoginScreen: F7LoginScreen,
   Navbar     : F7Navbar,
   Page       : F7Page,
   Panel      : F7Panel,
@@ -61,12 +65,14 @@ export {
   F7Badge       as Badge,
   F7Block       as Block,
   F7BlockTitle  as BlockTitle,
+  F7Button      as Button,
   F7Checkbox    as Checkbox,
   F7Grid        as Grid,
   F7Icon        as Icon,
   F7Inputs      as Inputs,
   F7Link        as Link,
   F7ListView    as ListView,
+  F7LoginScreen as LoginScreen,
   F7Navbar      as Navbar,
   F7Page        as Page,
   F7Panel       as Panel,
