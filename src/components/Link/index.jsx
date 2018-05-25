@@ -37,7 +37,7 @@ class F7Link extends React.Component {
 
 F7Link.propTypes = {
   icon      : PropTypes.element,
-  children  : PropTypes.string,
+  children  : PropTypes.node,
   external  : PropTypes.bool,
   href      : PropTypes.string,
   onClick   : PropTypes.func,

@@ -45,10 +45,18 @@ class F7Page extends React.Component {
     };
   }
 
+  _getHTMLid() {
+    if (this.props.id === true) {
+      return this.props.name;
+    }
+
+    return this.props.id;
+  }
+
   render() {
     let { navbar, toolbar, children } = this._checkChildOrder();
 
-    return <div onClick={this.props.onClick} id={this.props.id} data-name={this.props.name} className={classNames([this.props.className, 'page'])}>
+    return <div onClick={this.props.onClick} id={this._getHTMLid()} data-name={this.props.name} className={classNames([this.props.className, 'page'])}>
       {navbar && this.props.navbarType === 'fixed' ? navbar : undefined}
       {toolbar && this.props.toolbarType === 'fixed' ? toolbar : undefined}
       <div className="page-content">
@@ -77,7 +85,10 @@ F7Page.propTypes = {
   ]),
   className  : PropTypes.string,
   name       : PropTypes.string.isRequired,
-  id         : PropTypes.string,
+  id         : PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool
+  ]),
   onClick    : PropTypes.func,
   onInit     : PropTypes.func,
 };

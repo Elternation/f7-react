@@ -79,9 +79,6 @@ class F7LoginScreen extends React.Component {
   }
 }
 
-F7LoginScreen.Title  = F7LoginScreenTitle;
-F7LoginScreen.Footer = F7LoginScreenBlockFooter;
-
 F7LoginScreen.propTypes = {
   className : PropTypes.string,
   id        : PropTypes.string,
@@ -92,4 +89,9 @@ F7LoginScreen.propTypes = {
   open      : PropTypes.bool,
 };
 
-export default withF7AppContext(F7LoginScreen);
+const F7LoginScreenWithContext = withF7AppContext(F7LoginScreen);
+
+F7LoginScreenWithContext.Title  = F7LoginScreenTitle;
+F7LoginScreenWithContext.Footer = F7LoginScreenBlockFooter;
+
+export default F7LoginScreenWithContext;

@@ -2,7 +2,6 @@ import React              from 'react';
 import PropTypes          from 'prop-types';
 
 import F7RangeSlider      from '../../RangeSlider';
-import F7Checkbox         from '../../Checkbox';
 
 class F7TextInput extends React.Component {
   _getValidateFields() {
@@ -34,7 +33,8 @@ class F7TextInput extends React.Component {
       required            : this.props.required,
       validate            : (!!(validate_settings.validate || this.props.required)).toString(),
       pattern             : validate_settings.pattern,
-      'data-error-message': validate_settings.error_message
+      'data-error-message': validate_settings.error_message,
+      value               : this.props.value,
     };
 
     return Object.assign({}, props, this.props.eventsHandlers);
@@ -67,6 +67,7 @@ F7TextInput.propTypes = {
     })
   ]),
   children: PropTypes.node,
+  value   : PropTypes.any,
   type          : PropTypes.oneOf([
     'text',
     'password',

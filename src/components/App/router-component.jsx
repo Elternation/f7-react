@@ -8,10 +8,14 @@ class F7RouterComponentClass {
     this.props = props;
   }
 
-  createReactElement(callback = () => { /* Empty function */ }) {
+  createReactElement(F7Context, context, callback = () => { /* Empty function */ }) {
     let ReactComponent = this.ReactComponent;
 
-    ReactDOM.render(<ReactComponent {...this.props}/>, this.HTMLElementRoot, callback);
+    ReactDOM.render(
+      <F7Context.Provider value={context}>
+        <ReactComponent {...this.props}/>
+      </F7Context.Provider>,
+      this.HTMLElementRoot, callback);
   }
 
   render() {
@@ -19,14 +23,14 @@ class F7RouterComponentClass {
   }
 }
 
-const getRouterComponent = (reactComponent, props = {}) => {
+const getRouterComponent = (reactComponent, F7Context, context, props = {}) => {
   return {
     render: () => {
       let instance = new F7RouterComponentClass(reactComponent, props),
         htmlReactElement = null,
         all_done = false;
 
-      instance.createReactElement(() => {
+      instance.createReactElement(F7Context, context, () => {
         htmlReactElement = instance.render();
         all_done = true;
       });

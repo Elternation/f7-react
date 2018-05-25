@@ -1,4 +1,5 @@
 import React            from 'react';
+import ReactDOM         from 'react-dom';
 import PropTypes        from 'prop-types';
 import classNames       from 'classnames';
 import Framework7       from 'framework7/dist/framework7.esm.bundle';
@@ -69,9 +70,13 @@ class F7Panel extends React.Component {
   }
 
   render() {
-    return <div ref={(el) => { this.html_element = el; }} className={this._getClassNames()}>
+    if (!this.props.f7_context.portals.panels) {
+      return null;
+    }
+
+    return ReactDOM.createPortal(<div ref={(el) => { this.html_element = el; }} className={this._getClassNames()}>
       {this.props.children}
-    </div>;
+    </div>, this.props.f7_context.portals.panels);
   }
 }
 
@@ -82,7 +87,10 @@ F7Panel.propTypes = {
   side      : PropTypes.oneOf(['left', 'right']).isRequired,
   effect    : PropTypes.oneOf(['cover', 'reveal']),
   f7_context: PropTypes.shape({
-    f7: PropTypes.instanceOf(Framework7).isRequired,
+    f7     : PropTypes.instanceOf(Framework7).isRequired,
+    portals: PropTypes.shape({
+      panels: PropTypes.instanceOf(HTMLElement),
+    }),
   })
 };
 

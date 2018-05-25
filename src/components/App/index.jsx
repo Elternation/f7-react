@@ -5,7 +5,14 @@ import Framework7         from 'framework7/dist/framework7.esm.bundle';
 
 import routerComponent    from './router-component';
 
-const F7Context = React.createContext({ f7: null });
+const F7Context = React.createContext({
+  f7: {
+    instance: {}
+  },
+  portals: {
+    panels: null,
+  }
+});
 
 class F7App extends React.Component {
   constructor(props) {
@@ -13,7 +20,22 @@ class F7App extends React.Component {
 
     let options = props.parameters;
 
-    this.inited = false;
+    this.f7_app_context = {
+      f7: {
+        instance: {}
+      },
+      portals: {
+        panels: null,
+      }
+    };
+
+    this.portals = {
+      panels: null
+    };
+
+    this.state = {
+      init: false
+    };
 
     options.routes = this._wrapRoutes(props.routes);
     options.init = false;
@@ -21,10 +43,10 @@ class F7App extends React.Component {
 
     this._onF7Init = this._onF7Init.bind(this);
 
-    this.f7_instance = new Framework7(options);
-    this.f7_instance.on('init', this._onF7Init);
+    this.f7_app_context.f7.instance = new Framework7(options);
+    this.f7_app_context.f7.instance.on('init', this._onF7Init);
 
-    this.f7_instance.init();
+    this.f7_app_context.f7.instance.init();
   }
 
   _wrapRoutes(routes) {
@@ -32,9 +54,9 @@ class F7App extends React.Component {
 
     for (let one_route of routes) {
       if (_.isObject(one_route.component) && one_route.component.element && one_route.component.props) {
-        one_route.component = routerComponent(one_route.component.element, one_route.component.props);
+        one_route.component = routerComponent(one_route.component.element, F7Context, this.f7_app_context, one_route.component.props);
       } else {
-        one_route.component = routerComponent(one_route.component);
+        one_route.component = routerComponent(one_route.component, F7Context, this.f7_app_context);
       }
 
       if (_.isArray(one_route.tabs)) {
@@ -48,21 +70,26 @@ class F7App extends React.Component {
   }
 
   _onF7Init() {
-    this.inited = true;
-
     if (!_.isFunction(this.props.onInit)) {
       return;
     }
 
-    this.props.onInit(this.f7_instance);
+    this.props.onInit(this.f7_app_context.f7.instance);
+  }
+
+  componentDidMount() {
+    this.setState({
+      init: true
+    });
   }
 
   render() {
-    if (!this.inited) {
+    if (!this.state.init) {
       return null;
     }
 
-    return <F7Context.Provider value={{ f7: this.f7_instance }}>
+    return <F7Context.Provider value={this.f7_app_context}>
+      <div ref={(element) => { this.f7_app_context.portals.panels = element; }} className="f7-react-panels-portal"/>
       {this.props.children}
     </F7Context.Provider>;
   }
