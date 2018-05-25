@@ -2,16 +2,13 @@ import React              from 'react';
 import PropTypes          from 'prop-types';
 import classNames         from 'classnames';
 
+import F7ListBaseElement  from '../../../../helpers/components/ListBaseElement';
+
 import Group              from '../../Items/Group';
 
 class F7BaseListView extends React.Component {
   _getClassNames() {
     let classes = {
-      'list'                : true,
-      'no-hairlines'        : this.props.noHairlines,
-      'no-hairlines-between': this.props.noHairlinesBetween,
-      'inset'               : this.props.inset,
-      'tablet-inset'        : this.props.tabletInset,
       'chevron-center'      : this.props.chevronCenter,
       'no-chevron'          : this.props.noChevron
     };
@@ -58,9 +55,9 @@ class F7BaseListView extends React.Component {
       </ul>;
     }
 
-    return <div className={this._getClassNames()}>
+    return <F7ListBaseElement {...this.props} className={this._getClassNames()}>
       {content}
-    </div>;
+    </F7ListBaseElement>;
   }
 }
 

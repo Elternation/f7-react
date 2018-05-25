@@ -1,6 +1,8 @@
-import React      from 'react';
-import PropTypes  from 'prop-types';
-import classNames from 'classnames';
+import React                      from 'react';
+import PropTypes                  from 'prop-types';
+import classNames                 from 'classnames';
+
+import getEventsHandlersFromProps from '../../utils/get-events-handlers-from-props';
 
 import F7Link     from '../Link';
 
@@ -12,22 +14,8 @@ class F7Button extends React.Component {
     ]);
   }
 
-  _getEventHandlers() {
-    let event_handlers = {};
-
-    for (let [key, value] of Object.entries(this.props)) {
-      if (key.substring(0,2) !== 'on') {
-        continue;
-      }
-
-      event_handlers[key] = value;
-    }
-
-    return event_handlers;
-  }
-
   render() {
-    let events_handlers = this._getEventHandlers();
+    let events_handlers = getEventsHandlersFromProps(this.props);
 
     if (this.props.link) {
       return <F7Link {...events_handlers} openPanel={this.props.openPanel} className={this._getClassNames()}>{this.props.children}</F7Link>;

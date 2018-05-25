@@ -1,9 +1,10 @@
 import React              from 'react';
 import PropTypes          from 'prop-types';
 import _                  from 'lodash';
-import classNames         from 'classnames';
 
 import addPropsToChildren from '../../../../utils/add-props-to-children';
+
+import F7ListBaseElement  from '../../../../helpers/components/ListItemBaseElement';
 
 import MediaPath          from './media';
 import TitlePath          from './title';
@@ -75,9 +76,9 @@ class F7MediaListItem extends React.Component {
   }
 
   render() {
-    return <li className={classNames([this.props.className, { ripple: this.props.ripple }])}>
+    return <F7ListBaseElement {...this.props}>
       {this._getItemContent()}
-    </li>;
+    </F7ListBaseElement>;
   }
 }
 

@@ -2,9 +2,11 @@ import React              from 'react';
 import PropTypes          from 'prop-types';
 import classNames         from 'classnames';
 
+import F7ListBaseElement  from '../../../../helpers/components/ListItemBaseElement';
+
 class F7DividerListItem extends React.Component {
   render() {
-    return <li className={classNames(['item-divider', this.props.className])}>{this.props.title}</li>;
+    return <F7ListBaseElement className={classNames(['item-divider', this.props.className])}>{this.props.title}</F7ListBaseElement>;
   }
 }
 

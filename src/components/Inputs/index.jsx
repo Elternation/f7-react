@@ -4,12 +4,13 @@ import classNames         from 'classnames';
 
 import addPropsToChildren from '../../utils/add-props-to-children';
 
+import F7ListBaseElement  from '../../helpers/components/ListBaseElement';
+
 import F7InputItem        from './Item';
 
 class F7Inputs extends React.Component {
   _getClassNames() {
     let classes = {
-      'list'                : true,
       'inline-labels'       : this.props.inlineLabels,
       'inset'               : this.props.inset,
       'tablet-inset'        : this.props.tabletInset,
@@ -29,11 +30,11 @@ class F7Inputs extends React.Component {
   }
 
   render() {
-    return <div className={this._getClassNames()}>
+    return <F7ListBaseElement {...this.props} className={this._getClassNames()}>
       <ul>
         {this._wrapChildren()}
       </ul>
-    </div>;
+    </F7ListBaseElement>;
   }
 }
 

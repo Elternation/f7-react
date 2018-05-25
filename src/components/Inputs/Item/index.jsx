@@ -1,9 +1,13 @@
-import React              from 'react';
-import PropTypes          from 'prop-types';
-import classNames         from 'classnames';
-import _                  from 'lodash';
+import React                      from 'react';
+import PropTypes                  from 'prop-types';
+import classNames                 from 'classnames';
+import _                          from 'lodash';
 
-import F7InputsItemInput  from './input';
+import F7ListBaseElement          from '../../../helpers/components/ListItemBaseElement';
+
+import getEventsHandlersFromProps from '../../../utils/get-events-handlers-from-props';
+
+import F7InputsItemInput          from './input';
 
 class F7BaseInputsItem extends React.Component {
   _getClassNames() {
@@ -14,20 +18,6 @@ class F7BaseInputsItem extends React.Component {
     };
 
     return classNames([classes, this.props.className]);
-  }
-
-  _getEventHandlers() {
-    let event_handlers = {};
-
-    for (let [key, value] of Object.entries(this.props)) {
-      if (key.substring(0,2) !== 'on') {
-        continue;
-      }
-
-      event_handlers[key] = value;
-    }
-
-    return event_handlers;
   }
 
   _getContent() {
@@ -43,7 +33,7 @@ class F7BaseInputsItem extends React.Component {
       </div>;
     }
 
-    input = <F7InputsItemInput {...this.props} eventsHandlers={this._getEventHandlers()}/>;
+    input = <F7InputsItemInput {...this.props} eventsHandlers={getEventsHandlersFromProps(this.props)}/>;
 
     if (!_.isEmpty(this.props.info)){
       info = <div className="item-input-info">{this.props.info}</div>;
@@ -60,7 +50,7 @@ class F7BaseInputsItem extends React.Component {
   render() {
     let elements = this._getContent();
 
-    return <li className={this._getClassNames()}>
+    return <F7ListBaseElement {...this.props} className={this._getClassNames()}>
       {elements.media}
       <div className="item-inner">
         {elements.label}
@@ -69,7 +59,7 @@ class F7BaseInputsItem extends React.Component {
           {elements.info}
         </div>
       </div>
-    </li>;
+    </F7ListBaseElement>;
   }
 }
 
