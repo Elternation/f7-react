@@ -1,9 +1,11 @@
 import _                  from 'lodash';
 import React              from 'react';
+import ReactDOM           from 'react-dom';
 import PropTypes          from 'prop-types';
+import uuid               from 'uuid/v4';
 import Framework7         from 'framework7/dist/framework7.esm.bundle';
 
-import routerComponent    from './router-component';
+import RouterComponent    from './router-component';
 
 const F7Context = React.createContext({
   f7: {
@@ -53,11 +55,31 @@ class F7App extends React.Component {
     let result = [];
 
     for (let one_route of routes) {
-      if (_.isObject(one_route.component) && one_route.component.element && one_route.component.props) {
-        one_route.component = routerComponent(one_route.component.element, F7Context, this.f7_app_context, one_route.component.props);
+      let id = uuid(),
+        ReactComponent, props = {};
+
+      if (_.isObject(one_route.react_component) && one_route.react_component.element && one_route.react_component.props) {
+        ReactComponent = one_route.react_component.element;
+        props = one_route.react_component.props;
       } else {
-        one_route.component = routerComponent(one_route.component, F7Context, this.f7_app_context);
+        ReactComponent = one_route.react_component;
       }
+
+      one_route.content = `<div class="page" id="${id}"></div>`;
+      one_route.on = {
+        pageMounted: (event, page_context) => {
+          let el = document.getElementById(id);
+
+          ReactDOM.render(<RouterComponent portal={el}>
+            <F7Context.Provider value={this.f7_app_context}>
+              <ReactComponent {...props} page_context={page_context}/>
+            </F7Context.Provider>
+          </RouterComponent>, el);
+        },
+        pageBeforeRemove: () => {
+          ReactDOM.unmountComponentAtNode(document.getElementById(id));
+        }
+      };
 
       if (_.isArray(one_route.tabs)) {
         one_route.tabs = this._wrapRoutes(one_route.tabs);

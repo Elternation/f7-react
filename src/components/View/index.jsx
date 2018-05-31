@@ -49,7 +49,7 @@ class F7View extends React.Component {
 }
 
 F7View.propTypes = {
-  children  : PropTypes.node.isRequired,
+  children  : PropTypes.node,
   options   : PropTypes.object,
   className : PropTypes.string,
   main      : PropTypes.bool,
