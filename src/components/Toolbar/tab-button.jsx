@@ -13,19 +13,23 @@ class F7TabbarButton extends React.Component {
   }
 
   _getIcon() {
-    if (!this.props.F7icon) {
+    if (!this.props.icon) {
       return;
     }
 
-    return <F7Icon type={this.props.F7icon} color={this.props.iconColor} badge={this.props.badge} badgeColor={this.props.badgeColor}/>;
+    if (typeof this.props.icon === 'string') {
+      return <F7Icon type={this.props.icon} color={this.props.iconColor} badge={this.props.badge} badgeColor={this.props.badgeColor}/>;
+    }
+
+    return this.props.icon;
   }
 
   _getLabel() {
-    if (!this.props.children) {
+    if (!this.props.label) {
       return;
     }
 
-    return <span className="tabbar-label">{this.props.children}</span>;
+    return <span className="tabbar-label">{this.props.label}</span>;
   }
 
   render() {
@@ -38,9 +42,12 @@ class F7TabbarButton extends React.Component {
 
 F7TabbarButton.propTypes = {
   href      : PropTypes.string,
-  F7icon    : PropTypes.string.isRequired,
+  icon      : PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+  ]),
   iconColor : PropTypes.string,
-  children  : PropTypes.string,
+  label     : PropTypes.string,
   active    : PropTypes.bool,
   badge     : PropTypes.oneOfType([
     PropTypes.string,

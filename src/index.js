@@ -17,6 +17,7 @@ import F7Navbar      from './components/Navbar';
 import F7Page        from './components/Page';
 import F7Panel       from './components/Panel';
 import F7RangeSlider from './components/RangeSlider';
+import F7Tabs        from './components/Tabs';
 import F7Toolbar     from './components/Toolbar';
 import F7View        from './components/View';
 import F7Views       from './components/Views';
@@ -53,6 +54,7 @@ F7React.components = {
   Page       : F7Page,
   Panel      : F7Panel,
   RangeSlider: F7RangeSlider,
+  Tabs       : F7Tabs,
   Toolbar    : F7Toolbar,
   View       : F7View,
   Views      : F7Views,
@@ -77,6 +79,7 @@ export {
   F7Page        as Page,
   F7Panel       as Panel,
   F7RangeSlider as RangeSlider,
+  F7Tabs        as Tabs,
   F7Toolbar     as Toolbar,
   F7View        as View,
   F7Views       as Views,

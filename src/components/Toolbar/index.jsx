@@ -33,7 +33,6 @@ class F7Toolbar extends React.Component {
   }
 
   render() {
-    this._checkTabbarLabel();
     return <div className={this._getToolbarClassName()}>
       <div className="toolbar-inner">
         {this.props.children}

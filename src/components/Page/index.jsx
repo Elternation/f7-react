@@ -4,6 +4,7 @@ import classNames       from 'classnames';
 
 import Navbar           from '../Navbar';
 import Toolbar          from '../Toolbar';
+import Tabs             from '../Tabs';
 
 class F7Page extends React.Component {
   constructor(props) {
@@ -20,9 +21,10 @@ class F7Page extends React.Component {
     }
   }
 
-  _checkChildOrder() {
+  _getPageElements() {
     let navbar = null,
       toolbar = null,
+      with_tabs = false,
       children = [];
 
     React.Children.map(this.props.children, (childNode) => {
@@ -33,6 +35,10 @@ class F7Page extends React.Component {
         case Toolbar:
           toolbar = childNode;
           break;
+        case Tabs:
+          with_tabs = true;
+          children.push(childNode);
+          break;
         default:
           children.push(childNode);
       }
@@ -41,6 +47,7 @@ class F7Page extends React.Component {
     return {
       navbar,
       toolbar,
+      with_tabs,
       children
     };
   }
@@ -53,17 +60,25 @@ class F7Page extends React.Component {
     return this.props.id;
   }
 
+  _wrapPageContent(elements, with_tabs) {
+    if (with_tabs) {
+      return elements.children;
+    }
+
+    return <div className="page-content">
+      {elements.navbar && this.props.navbarType === 'static' ? elements.navbar : undefined}
+      {elements.children}
+      {elements.toolbar && this.props.toolbarType === 'static' ? elements.toolbar : undefined}
+    </div>;
+  }
+
   render() {
-    let { navbar, toolbar, children } = this._checkChildOrder();
+    let page_elements = this._getPageElements();
 
     return <div onClick={this.props.onClick} id={this._getHTMLid()} data-name={this.props.name} className={classNames([this.props.className, 'page'])}>
-      {navbar && this.props.navbarType === 'fixed' ? navbar : undefined}
-      {toolbar && this.props.toolbarType === 'fixed' ? toolbar : undefined}
-      <div className="page-content">
-        {navbar && this.props.navbarType === 'static' ? navbar : undefined}
-        {children}
-        {toolbar && this.props.toolbarType === 'static' ? toolbar : undefined}
-      </div>
+      {page_elements.navbar && this.props.navbarType === 'fixed' ? page_elements.navbar : undefined}
+      {page_elements.toolbar && this.props.toolbarType === 'fixed' ? page_elements.toolbar : undefined}
+      {this._wrapPageContent(page_elements, page_elements.with_tabs)}
     </div>;
   }
 }
