@@ -10,7 +10,7 @@ class F7MediaListItemSubtitle extends React.Component {
 }
 
 F7MediaListItemSubtitle.propTypes = {
-  children: PropTypes.string
+  children: PropTypes.node
 };
 
 export default F7MediaListItemSubtitle;
