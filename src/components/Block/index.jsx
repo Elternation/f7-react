@@ -44,7 +44,7 @@ class F7Block extends React.Component {
   }
 
   render() {
-    return <div className={this._getClassNames()}>
+    return <div id={this.props.id} className={this._getClassNames()}>
       {this._getContentElements()}
     </div>;
   }
@@ -61,6 +61,7 @@ F7Block.defaultProps = {
 };
 
 F7Block.propTypes = {
+  id         : PropTypes.string,
   className  : PropTypes.string,
   children   : PropTypes.node,
   strong     : PropTypes.bool,

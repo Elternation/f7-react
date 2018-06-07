@@ -3,10 +3,12 @@ import PropTypes          from 'prop-types';
 
 import F7ListBaseElement  from '../../../../helpers/components/ListItemBaseElement';
 
+import F7Link             from '../../../Link';
+
 class F7LinkListItem extends React.Component {
   render() {
     return <F7ListBaseElement {...this.props}>
-      <a href={this.props.href}>{this.props.children}</a>
+      <F7Link {...this.props}/>
     </F7ListBaseElement>;
   }
 }

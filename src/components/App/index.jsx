@@ -12,7 +12,8 @@ const F7Context = React.createContext({
     instance: {}
   },
   portals: {
-    panels: null,
+    panels  : null,
+    popovers: null,
   }
 });
 
@@ -27,12 +28,9 @@ class F7App extends React.Component {
         instance: {}
       },
       portals: {
-        panels: null,
+        panels  : null,
+        popovers: null,
       }
-    };
-
-    this.portals = {
-      panels: null
     };
 
     this.state = {
@@ -112,6 +110,7 @@ class F7App extends React.Component {
 
     return <F7Context.Provider value={this.f7_app_context}>
       <div ref={(element) => { this.f7_app_context.portals.panels = element; }} className="f7-react-panels-portal"/>
+      <div ref={(element) => { this.f7_app_context.portals.popovers = element; }} className="f7-react-popovers-portal"/>
       {this.props.children}
     </F7Context.Provider>;
   }

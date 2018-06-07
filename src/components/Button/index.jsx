@@ -18,7 +18,7 @@ class F7Button extends React.Component {
     let events_handlers = getEventsHandlersFromProps(this.props);
 
     if (this.props.link) {
-      return <F7Link {...events_handlers} openPanel={this.props.openPanel} className={this._getClassNames()}>{this.props.children}</F7Link>;
+      return <F7Link {...events_handlers} openPopover={this.props.openPopover} openPanel={this.props.openPanel} className={this._getClassNames()}>{this.props.children}</F7Link>;
     }
 
     if (this.props.input) {
@@ -30,11 +30,13 @@ class F7Button extends React.Component {
 }
 
 F7Button.propTypes = {
-  className: PropTypes.string,
-  children : PropTypes.node,
-  link     : PropTypes.bool,
-  input    : PropTypes.bool,
-  openPanel: PropTypes.oneOf(['left', 'right']),
+  className   : PropTypes.string,
+  children    : PropTypes.node,
+  link        : PropTypes.bool,
+  input       : PropTypes.bool,
+  openPanel   : PropTypes.oneOf(['left', 'right']),
+  openPopover : PropTypes.string,
+  closePopover: PropTypes.string,
 };
 
 export default F7Button;

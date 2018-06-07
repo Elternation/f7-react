@@ -1,6 +1,7 @@
 import 'framework7/dist/css/framework7.css';
 import 'framework7-icons';
 
+import F7ActionSheet from './components/ActionSheet';
 import F7App         from './components/App';
 import F7Badge       from './components/Badge';
 import F7Block       from './components/Block';
@@ -13,9 +14,11 @@ import F7Inputs      from './components/Inputs';
 import F7Link        from './components/Link';
 import F7ListView    from './components/ListView';
 import F7LoginScreen from './components/LoginScreen';
+import F7Messagebar  from './components/Messagebar';
 import F7Navbar      from './components/Navbar';
 import F7Page        from './components/Page';
 import F7Panel       from './components/Panel';
+import F7Popover     from './components/Popover';
 import F7RangeSlider from './components/RangeSlider';
 import F7Tabs        from './components/Tabs';
 import F7Toolbar     from './components/Toolbar';
@@ -38,6 +41,7 @@ class F7React {
 }
 
 F7React.components = {
+  ActionSheet: F7ActionSheet,
   App        : F7App,
   Badge      : F7Badge,
   Block      : F7Block,
@@ -50,9 +54,11 @@ F7React.components = {
   Link       : F7Link,
   ListView   : F7ListView,
   LoginScreen: F7LoginScreen,
+  Messagebar : F7Messagebar,
   Navbar     : F7Navbar,
   Page       : F7Page,
   Panel      : F7Panel,
+  Popover    : F7Popover,
   RangeSlider: F7RangeSlider,
   Tabs       : F7Tabs,
   Toolbar    : F7Toolbar,
@@ -63,6 +69,7 @@ F7React.components = {
 export default new F7React();
 
 export {
+  F7ActionSheet as ActionSheet,
   F7App         as App,
   F7Badge       as Badge,
   F7Block       as Block,
@@ -75,9 +82,11 @@ export {
   F7Link        as Link,
   F7ListView    as ListView,
   F7LoginScreen as LoginScreen,
+  F7Messagebar  as Messagebar,
   F7Navbar      as Navbar,
   F7Page        as Page,
   F7Panel       as Panel,
+  F7Popover     as Popover,
   F7RangeSlider as RangeSlider,
   F7Tabs        as Tabs,
   F7Toolbar     as Toolbar,

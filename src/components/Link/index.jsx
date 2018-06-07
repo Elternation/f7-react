@@ -13,11 +13,29 @@ class F7Link extends React.Component {
     this._onClick = this._onClick.bind(this);
   }
   _getClassNames() {
-    return classNames({
+    let classes = {
       'link'     : true,
       'icon-only': this.props.icon && !_.isEmpty(this.props.children),
       'external' : this.props.external
-    });
+    };
+
+    if (typeof this.props.openPopover === 'string') {
+      classes['popover-open'] = true;
+    }
+
+    if (this.props.closePopover === true) {
+      classes['popover-close'] = true;
+    }
+
+    return classNames(classes);
+  }
+
+  _getDataPopover() {
+    if (typeof this.props.openPopover !== 'string') {
+      return;
+    }
+
+    return `.popover-${this.props.openPopover}`;
   }
 
   _onClick(event) {
@@ -31,18 +49,20 @@ class F7Link extends React.Component {
   }
 
   render() {
-    return <a onClick={this._onClick} className={this._getClassNames()} href={this.props.href}>{this.props.icon}{this.props.children}</a>;
+    return <a data-popover={this._getDataPopover()} onClick={this._onClick} className={this._getClassNames()} href={this.props.href}>{this.props.icon}{this.props.children}</a>;
   }
 }
 
 F7Link.propTypes = {
-  icon      : PropTypes.element,
-  children  : PropTypes.node,
-  external  : PropTypes.bool,
-  href      : PropTypes.string,
-  onClick   : PropTypes.func,
-  openPanel : PropTypes.oneOf(['left', 'right']),
-  f7_context: PropTypes.shape({
+  icon        : PropTypes.element,
+  children    : PropTypes.node,
+  external    : PropTypes.bool,
+  href        : PropTypes.string,
+  onClick     : PropTypes.func,
+  openPanel   : PropTypes.oneOf(['left', 'right']),
+  openPopover : PropTypes.string,
+  closePopover: PropTypes.bool,
+  f7_context  : PropTypes.shape({
     f7: PropTypes.instanceOf(Framework7).isRequired,
   })
 };

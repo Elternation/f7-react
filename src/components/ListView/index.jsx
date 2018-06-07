@@ -1,6 +1,7 @@
 import F7SimpleList       from './Lists/Simple';
 import F7MediaList        from './Lists/Media';
 import F7BaseList         from './Lists/Base';
+import F7LinksList        from './Lists/Links';
 
 import F7BaseItem         from './Items/Base';
 import F7DividerItem      from './Items/Divider';
@@ -10,6 +11,7 @@ import F7GroupItem        from './Items/Group';
 const F7ListView        = F7BaseList;
 
 F7ListView.Simple       = F7SimpleList;
+F7ListView.Links        = F7LinksList;
 F7ListView.Media        = F7MediaList;
 
 F7ListView.Item         = F7BaseItem;

@@ -2,7 +2,7 @@ import React              from 'react';
 import PropTypes          from 'prop-types';
 import classNames         from 'classnames';
 
-import F7SimpleItem       from '../../Items/Simple';
+import F7Linktem          from '../../Items/Link';
 
 import F7BaseList         from '../Base';
 
@@ -14,7 +14,7 @@ class F7LinksList extends React.Component {
   }
 }
 
-F7LinksList.Item = F7SimpleItem;
+F7LinksList.Item = F7Linktem;
 
 F7LinksList.propTypes = {
   className: PropTypes.string,
