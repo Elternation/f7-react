@@ -33,7 +33,7 @@ class F7Icon extends React.Component {
 
 F7Icon.propTypes = {
   color: PropTypes.string,
-  type : PropTypes.string.isRequired,
+  type : PropTypes.node.isRequired,
   badge: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number

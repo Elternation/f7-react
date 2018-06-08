@@ -77,7 +77,7 @@ class F7MessageBar extends React.Component {
         {before_items}
         <div className="messagebar-area">
           {attachments.length ? <div className="messagebar-attachments">{attachments}</div> : null}
-          <textarea {...event_handlers} value={this.props.value} disabled={this.props.disabled} rows={this.props.rows ? this.props.rows.toString() : undefined} className="resizable"/>
+          <textarea {...event_handlers} placeholder={this.props.placeholder} value={this.props.value} disabled={this.props.disabled} rows={this.props.rows ? this.props.rows.toString() : undefined} className="resizable"/>
         </div>
         {after_items}
       </div>

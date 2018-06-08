@@ -28,6 +28,10 @@ class F7Page extends React.Component {
       children = [];
 
     React.Children.map(this.props.children, (childNode) => {
+      if (!childNode) {
+        return;
+      }
+
       switch (childNode.type) {
         case Navbar:
           navbar = childNode;

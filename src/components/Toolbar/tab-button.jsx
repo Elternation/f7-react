@@ -17,11 +17,7 @@ class F7TabbarButton extends React.Component {
       return;
     }
 
-    if (typeof this.props.icon === 'string') {
-      return <F7Icon type={this.props.icon} color={this.props.iconColor} badge={this.props.badge} badgeColor={this.props.badgeColor}/>;
-    }
-
-    return this.props.icon;
+    return <F7Icon type={this.props.icon} color={this.props.iconColor} badge={this.props.badge} badgeColor={this.props.badgeColor}/>;
   }
 
   _getLabel() {

@@ -22,6 +22,10 @@ class F7BaseListView extends React.Component {
       elements = [];
 
     React.Children.map(this.props.children, (childNode) => {
+      if (!childNode) {
+        return;
+      }
+
       if (idx === 0 && childNode.type === Group) {
         is_group = true;
       }

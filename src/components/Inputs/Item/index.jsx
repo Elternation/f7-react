@@ -1,13 +1,11 @@
-import React                      from 'react';
-import PropTypes                  from 'prop-types';
-import classNames                 from 'classnames';
-import _                          from 'lodash';
+import React             from 'react';
+import PropTypes         from 'prop-types';
+import classNames        from 'classnames';
+import _                 from 'lodash';
 
-import F7ListBaseElement          from '../../../helpers/components/ListItemBaseElement';
+import F7ListBaseElement from '../../../helpers/components/ListItemBaseElement';
 
-import getEventsHandlersFromProps from '../../../utils/get-events-handlers-from-props';
-
-import F7InputsItemInput          from './input';
+import F7InputsItemInput from './input';
 
 class F7BaseInputsItem extends React.Component {
   _getClassNames() {
@@ -33,7 +31,7 @@ class F7BaseInputsItem extends React.Component {
       </div>;
     }
 
-    input = <F7InputsItemInput {...this.props} eventsHandlers={getEventsHandlersFromProps(this.props)}/>;
+    input = <F7InputsItemInput {...this.props}/>;
 
     if (!_.isEmpty(this.props.info)){
       info = <div className="item-input-info">{this.props.info}</div>;

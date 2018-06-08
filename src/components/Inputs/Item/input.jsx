@@ -1,7 +1,7 @@
-import React              from 'react';
-import PropTypes          from 'prop-types';
+import React         from 'react';
+import PropTypes     from 'prop-types';
 
-import F7RangeSlider      from '../../RangeSlider';
+import F7RangeSlider from '../../RangeSlider';
 
 class F7TextInput extends React.Component {
   _getValidateFields() {
@@ -28,7 +28,7 @@ class F7TextInput extends React.Component {
   _getPropsForElement() {
     let validate_settings = this._getValidateFields();
 
-    let props = {
+    return {
       type                : this.props.type,
       required            : this.props.required,
       validate            : (!!(validate_settings.validate || this.props.required)).toString(),
@@ -36,8 +36,6 @@ class F7TextInput extends React.Component {
       'data-error-message': validate_settings.error_message,
       value               : this.props.value,
     };
-
-    return Object.assign({}, props, this.props.eventsHandlers);
   }
 
   render() {
