@@ -1,6 +1,7 @@
 import React            from 'react';
 import PropTypes        from 'prop-types';
 import classNames       from 'classnames';
+import uuid             from 'uuid/v4';
 
 import Navbar           from '../Navbar';
 import Toolbar          from '../Toolbar';
@@ -10,9 +11,11 @@ class F7Page extends React.Component {
   constructor(props) {
     super(props);
 
+    this.name = typeof props.name === 'string' ? props.name : uuid();
+
     if (props.onInit) {
       document.addEventListener('page:init', (event) => {
-        if (event.detail.name !== props.name) {
+        if (event.detail.name !== this.name) {
           return;
         }
 
@@ -58,7 +61,7 @@ class F7Page extends React.Component {
 
   _getHTMLid() {
     if (this.props.id === true) {
-      return this.props.name;
+      return this.name;
     }
 
     return this.props.id;
@@ -79,7 +82,7 @@ class F7Page extends React.Component {
   render() {
     let page_elements = this._getPageElements();
 
-    return <div onClick={this.props.onClick} id={this._getHTMLid()} data-name={this.props.name} className={classNames([this.props.className, 'page'])}>
+    return <div onClick={this.props.onClick} id={this._getHTMLid()} data-name={this.name} className={classNames([this.props.className, 'page'])}>
       {page_elements.navbar && this.props.navbarType === 'fixed' ? page_elements.navbar : undefined}
       {page_elements.toolbar && this.props.toolbarType === 'fixed' ? page_elements.toolbar : undefined}
       {this._wrapPageContent(page_elements, page_elements.with_tabs)}
@@ -103,7 +106,7 @@ F7Page.propTypes = {
     'fixed'
   ]),
   className  : PropTypes.string,
-  name       : PropTypes.string.isRequired,
+  name       : PropTypes.string,
   id         : PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.bool

@@ -26,16 +26,22 @@ class F7TextInput extends React.Component {
   }
 
   _getPropsForElement() {
-    let validate_settings = this._getValidateFields();
+    let validate_settings = this._getValidateFields(),
+      props_to_input;
 
-    return {
+    props_to_input = {
       type                : this.props.type,
+      disabled            : this.props.disabled,
       required            : this.props.required,
       validate            : (!!(validate_settings.validate || this.props.required)).toString(),
       pattern             : validate_settings.pattern,
       'data-error-message': validate_settings.error_message,
       value               : this.props.value,
     };
+
+    if (this.props.value !== undefined) {
+      props_to_input.onChange = () => { /* Empty function */ }; // Пустая, чтобы не ругался React, т.к. обработчик в F7 вешается выше.
+    }
   }
 
   render() {
@@ -57,6 +63,7 @@ class F7TextInput extends React.Component {
 F7TextInput.propTypes = {
   eventsHandlers: PropTypes.object,
   required      : PropTypes.bool,
+  disabled      : PropTypes.bool,
   validate      : PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.shape({

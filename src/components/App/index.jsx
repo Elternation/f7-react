@@ -5,8 +5,6 @@ import PropTypes          from 'prop-types';
 import uuid               from 'uuid/v4';
 import Framework7         from 'framework7/dist/framework7.esm.bundle';
 
-import RouterComponent    from './router-component';
-
 const F7Context = React.createContext({
   f7: {
     instance: {}
@@ -63,19 +61,30 @@ class F7App extends React.Component {
         ReactComponent = one_route.react_component;
       }
 
-      one_route.content = `<div class="page" id="${id}"></div>`;
+      one_route.content = '<div class="page"></div>';
       one_route.on = {
         pageMounted: (event, page_context) => {
-          let el = document.getElementById(id);
+          let el = document.getElementsByClassName('page-next');
 
-          ReactDOM.render(<RouterComponent portal={el}>
-            <F7Context.Provider value={this.f7_app_context}>
-              <ReactComponent {...props} page_context={page_context}/>
-            </F7Context.Provider>
-          </RouterComponent>, el);
+          if (!el.length) {
+            el = document.getElementsByClassName('page-previous');
+          }
+
+          if (!el.length) {
+            el = document.getElementsByClassName('page-current');
+          }
+
+          el = el[0];
+
+          one_route.el_id = uuid();
+          el.setAttribute('id', uuid());
+
+          ReactDOM.render(<F7Context.Provider value={this.f7_app_context}>
+            <ReactComponent {...props} page_context={page_context}/>
+          </F7Context.Provider>, el);
         },
-        pageBeforeRemove: () => {
-          ReactDOM.unmountComponentAtNode(document.getElementById(id));
+        pageBeforeRemove: (event) => {
+          ReactDOM.unmountComponentAtNode(event.target);
         }
       };
 

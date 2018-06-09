@@ -52,7 +52,7 @@ class F7BaseInputsItem extends React.Component {
       {elements.media}
       <div className="item-inner">
         {elements.label}
-        <div className="item-input-wrap">
+        <div className={classNames(['item-input-wrap', { disabled: this.props.disabled }])}>
           {elements.input}
           {elements.info}
         </div>
@@ -73,6 +73,7 @@ F7BaseInputsItem.propTypes = {
   type         : PropTypes.string.isRequired,
   info         : PropTypes.string,
   floatingLabel: PropTypes.bool,
+  disabled     : PropTypes.bool,
 
 };
 
