@@ -42,6 +42,8 @@ class F7TextInput extends React.Component {
     if (this.props.value !== undefined) {
       props_to_input.onChange = () => { /* Empty function */ }; // Пустая, чтобы не ругался React, т.к. обработчик в F7 вешается выше.
     }
+
+    return props_to_input;
   }
 
   render() {

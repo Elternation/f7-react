@@ -43,6 +43,10 @@ class F7Link extends React.Component {
       this.props.f7_context.f7.panel.open(this.props.openPanel);
     }
 
+    if (this.props.closePopover) {
+      this.props.f7_context.f7.popover.close();
+    }
+
     if (_.isFunction(this.props.onClick)) {
       this.props.onClick(event);
     }

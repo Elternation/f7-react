@@ -8,6 +8,7 @@ import F7Block        from './components/Block';
 import F7BlockTitle   from './components/BlockTitle';
 import F7Button       from './components/Button';
 import F7Checkbox     from './components/Checkbox';
+import F7Dialog       from './components/Dialog';
 import F7Grid         from './components/Grid';
 import F7Icon         from './components/Icon';
 import F7Inputs       from './components/Inputs';
@@ -49,6 +50,7 @@ F7React.components = {
   BlockTitle  : F7BlockTitle,
   Button      : F7Button,
   Checkbox    : F7Checkbox,
+  Dialog      : F7Dialog,
   Grid        : F7Grid,
   Icon        : F7Icon,
   Inputs      : F7Inputs,
@@ -78,6 +80,7 @@ export {
   F7BlockTitle   as BlockTitle,
   F7Button       as Button,
   F7Checkbox     as Checkbox,
+  F7Dialog       as Dialog,
   F7Grid         as Grid,
   F7Icon         as Icon,
   F7Inputs       as Inputs,
