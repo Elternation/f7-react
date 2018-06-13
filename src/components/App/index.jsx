@@ -51,8 +51,7 @@ class F7App extends React.Component {
     let result = [];
 
     for (let one_route of routes) {
-      let id = uuid(),
-        ReactComponent, props = {};
+      let ReactComponent, props = {};
 
       if (_.isObject(one_route.react_component) && one_route.react_component.element && one_route.react_component.props) {
         ReactComponent = one_route.react_component.element;

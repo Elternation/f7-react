@@ -6,6 +6,8 @@ import withF7AppContext from '../../utils/with-f7-app-context';
 
 import F7EmptyComponent from '../../helpers/components/Empty';
 
+import { F7AppContext } from '../App';
+
 import F7DialogTitle    from './title';
 import F7DialogButton   from './button';
 
@@ -51,10 +53,6 @@ class F7Dialog extends React.Component {
   }
 
   _onOpen(content, event) {
-    let container = event.el.getElementsByClassName('dialog-text')[0];
-
-    ReactDOM.render(<F7EmptyComponent>{content}</F7EmptyComponent>, container);
-
     if (typeof this.props.onOpen === 'function') {
       this.props.onOpen(event);
     }
@@ -64,10 +62,6 @@ class F7Dialog extends React.Component {
     if (typeof this.props.onClose === 'function') {
       this.props.onClose(event);
     }
-
-    let container = event.el.getElementsByClassName('dialog-text')[0];
-
-    ReactDOM.unmountComponentAtNode(container);
   }
 
   _getF7DialogButtons(buttons) {
@@ -98,7 +92,13 @@ class F7Dialog extends React.Component {
   }
 
   componentDidMount() {
-    let { buttons, title, content } = this._getElements();
+    let { buttons, title, content } = this._getElements(),
+      context = {
+        f7: {
+          instance: this.props.f7_context.f7
+        },
+        portals: this.props.f7_context.portals
+      };
 
     this.instance = this.props.f7_context.f7.dialog.create({
       title,
@@ -107,6 +107,12 @@ class F7Dialog extends React.Component {
       verticalButtons: this.props.verticalButtons,
       buttons        : this._getF7DialogButtons(buttons)
     });
+
+    ReactDOM.render(<F7AppContext.Provider value={context}>
+      <F7EmptyComponent>
+        {content}
+      </F7EmptyComponent>
+    </F7AppContext.Provider>,this.instance.el.getElementsByClassName('dialog-text')[0]);
 
     this.instance.on('open', (event) => { this._onOpen(content, event); });
     this.instance.on('close', this._onClose);
@@ -117,6 +123,8 @@ class F7Dialog extends React.Component {
   }
 
   componentWillUnmount() {
+    ReactDOM.unmountComponentAtNode(this.instance.el.getElementsByClassName('dialog-text')[0]);
+
     this.instance.destroy();
     this.instance = null;
   }
