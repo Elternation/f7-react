@@ -2,8 +2,6 @@ import React              from 'react';
 import PropTypes          from 'prop-types';
 import classNames         from 'classnames';
 
-import addPropsToChildren from '../../utils/add-props-to-children';
-
 import F7ListBaseElement  from '../../helpers/components/ListBaseElement';
 
 import F7InputItem        from './Item';
@@ -24,8 +22,8 @@ class F7Inputs extends React.Component {
       return this.props.children;
     }
 
-    return React.Children.map(this.props.children, (childNode) => {
-      return addPropsToChildren(childNode, { floatingLabel: this.props.floatingLabels });
+    return React.Children.map(this.props.children, (child) => {
+      return React.cloneElement(child, { floatingLabel: this.props.floatingLabels });
     });
   }
 

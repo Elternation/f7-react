@@ -1,6 +1,7 @@
 import React                           from 'react';
 import PropTypes                       from 'prop-types';
 import classNames                      from 'classnames';
+import uuid                            from 'uuid/v4';
 
 import withF7AppContext                from '../../utils/with-f7-app-context';
 import getEventsHandlersFromProps      from '../../utils/get-events-handlers-from-props';
@@ -33,9 +34,17 @@ class F7MessageBar extends React.Component {
           attachments.push(childNode);
           break;
         case F7MessageBarBeforeTextareatItem:
+          if (this.props.disabled) {
+            childNode = React.cloneElement(childNode, { key: uuid(), disabled: true });
+          }
+
           before_items.push(childNode);
           break;
         case F7MessageBarAfterTextareatItem:
+          if (this.props.disabled) {
+            childNode = React.cloneElement(childNode, { key: uuid(), disabled: true });
+          }
+
           after_items.push(childNode);
           break;
         default:

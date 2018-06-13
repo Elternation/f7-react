@@ -2,8 +2,6 @@ import React              from 'react';
 import PropTypes          from 'prop-types';
 import _                  from 'lodash';
 
-import addPropsToChildren from '../../../../utils/add-props-to-children';
-
 import F7ListBaseElement  from '../../../../helpers/components/ListItemBaseElement';
 
 import MediaPath          from './media';
@@ -25,7 +23,7 @@ class F7MediaListItem extends React.Component {
     React.Children.map(this.props.children, (childNode) => {
       switch (childNode.type) {
         case MediaPath:
-          media = addPropsToChildren(childNode, { key: 'item-media' });
+          media = React.cloneElement(childNode, { key: 'item-media' });
           break;
         case TitlePath:
           title = childNode;

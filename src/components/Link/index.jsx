@@ -16,7 +16,8 @@ class F7Link extends React.Component {
     let classes = {
       'link'     : true,
       'icon-only': this.props.icon && !_.isEmpty(this.props.children),
-      'external' : this.props.external
+      'external' : this.props.external,
+      'disabled' : this.props.disabled
     };
 
     if (typeof this.props.openPopover === 'string') {
@@ -60,6 +61,7 @@ class F7Link extends React.Component {
 F7Link.propTypes = {
   icon        : PropTypes.element,
   children    : PropTypes.node,
+  disabled    : PropTypes.bool,
   external    : PropTypes.bool,
   href        : PropTypes.string,
   onClick     : PropTypes.func,
