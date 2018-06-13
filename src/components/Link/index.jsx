@@ -40,6 +40,10 @@ class F7Link extends React.Component {
   }
 
   _onClick(event) {
+    if (this.props.disabled) {
+      return;
+    }
+
     if (this.props.openPanel) {
       this.props.f7_context.f7.panel.open(this.props.openPanel);
     }
@@ -61,7 +65,7 @@ class F7Link extends React.Component {
 F7Link.propTypes = {
   icon        : PropTypes.element,
   children    : PropTypes.node,
-  disabled    : PropTypes.bool,
+  disabled    : PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   external    : PropTypes.bool,
   href        : PropTypes.string,
   onClick     : PropTypes.func,

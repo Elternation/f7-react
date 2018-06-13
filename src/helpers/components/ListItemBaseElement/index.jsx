@@ -9,6 +9,10 @@ import withF7AppContext           from '../../../utils/with-f7-app-context';
 
 class F7ListBaseItem extends React.Component {
   _onClick(event) {
+    if (this.props.disabled) {
+      return;
+    }
+
     if (this.props.openPanel) {
       this.props.f7_context.f7.panel.open(this.props.openPanel);
     }
@@ -38,6 +42,7 @@ F7ListBaseItem.propTypes = {
   className   : PropTypes.string,
   style       : PropTypes.object,
   ripple      : PropTypes.bool,
+  disabled    : PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   onClick     : PropTypes.func,
   openPanel   : PropTypes.oneOf(['left', 'right']),
   openPopover : PropTypes.string,

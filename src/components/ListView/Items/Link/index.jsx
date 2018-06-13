@@ -8,7 +8,7 @@ import F7Link             from '../../../Link';
 class F7LinkListItem extends React.Component {
   render() {
     return <F7ListBaseElement {...this.props}>
-      <F7Link {...this.props}/>
+      <F7Link {...this.props} onClick={undefined}/>
     </F7ListBaseElement>;
   }
 }
