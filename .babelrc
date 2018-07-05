@@ -1,0 +1,22 @@
+{
+  "presets": [
+    ["react"],
+    ["env", {
+      "targets": {
+        "browsers": [
+          "Chrome >= 60",
+          "Firefox >= 54",
+          "Opera >= 46",
+          "Safari >= 10",
+          "IE >= 11",
+          "Edge >= 40",
+          "ChromeAndroid >= 60",
+          "FirefoxAndroid >= 55",
+          "OperaMini >= 28",
+          "iOS >= 9",
+          "Android >= 6"
+        ]
+      }
+    }]
+  ]
+}
